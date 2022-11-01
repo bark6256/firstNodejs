@@ -12,17 +12,17 @@ const output = {
 };
 
 const users = {
-    id: ["1010", "2020", "3030"],
+    username: ["1010", "2020", "3030"],
     password: ["1q2w3e", "1q2w3e","1q2w3e4r"]
 };
 
 const process = {
     login : (req, res) => {
-        const id = req.body.id,
+        const username = req.body.username,
           password = req.body.password;
         
-        if (users.id.includes(id)){
-            const idx = users.id.indexOf(id);
+        if (users.username.includes(username)){
+            const idx = users.username.indexOf(username);
             if(users.password[idx] === password){
                 return res.json({
                     success: true,
