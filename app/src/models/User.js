@@ -18,6 +18,11 @@ class User {
         }
         return { success: false, msg: "존재하지 않는 아이디입니다."};
     }
+
+    register() {
+        const response = UserStorage.save(this.body);
+        return response;
+    }
 }
 
 module.exports = User; 
