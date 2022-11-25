@@ -8,17 +8,22 @@ class User {
     }
 
     async login() {
-        const { username, password } = await UserStorage.getUserInfo(this.body.username);
-
-        if (username) {
-            if (username === this.body.username && password === this.body.password) {
-                return { success: true }
+        try{
+            const { username, password } = await UserStorage.getUserInfo(this.body.username);
+            
+            if (username) {
+                if (username === this.body.username && password === this.body.password) {
+                    return { success: true }
+                }
+                return { success: false, msg: "비밀번호가 틀렸습니다."};
             }
-            return { success: false, msg: "비밀번호가 틀렸습니다."};
+            return { success: false, msg: "존재하지 않는 아이디입니다."};
         }
-        return { success: false, msg: "존재하지 않는 아이디입니다."};
+        catch (err) {
+            return {success: false, msg: err };
+        }
     }
-
+    
     async register() {
         try{
             const response = await UserStorage.save(this.body);
