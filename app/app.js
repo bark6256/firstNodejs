@@ -4,12 +4,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-dotenv.config();
+const morgan = require("morgan");
 
 const app = express();
+dotenv.config();
 
 // 라우팅
 const home = require("./src/routes/home");
+
+const accessLogStream = require("./src/config/log");
 
 // 앱 세팅
 app.set("views", "./src/views");
@@ -18,7 +21,9 @@ app.set("view engine", "ejs");
 // 미들 웨어
 app.use(express.static(`${__dirname}/src/public`));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended : true }))
+app.use(bodyParser.urlencoded({ extended : true }));
+app.use(morgan("dev"));
+app.use(morgan("common", { stream: accessLogStream }));
 
 
 app.use("/", home);
