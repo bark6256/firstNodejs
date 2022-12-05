@@ -13,6 +13,8 @@ dotenv.config();
 const home = require("./src/routes/home");
 
 const accessLogStream = require("./src/config/log");
+const logger = require = require("./src/config/logger");
+logger.log("error", "winston 로그 메시지")
 
 // 앱 세팅
 app.set("views", "./src/views");
